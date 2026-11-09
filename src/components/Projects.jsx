@@ -54,7 +54,9 @@ export default function Projects() {
         {/* Projects Grid */}
         <div className={styles.projectsGrid}>
           {filteredProjects.map(project => {
-            const isInDev = project.status.includes('Development');
+            const isPending =
+              project.status.includes('Development') ||
+              project.status.includes('Progress');
             return (
               <div key={project.id} className={styles.projectCard}>
                 {/* Header with Category & Status */}
@@ -62,7 +64,7 @@ export default function Projects() {
                   <span className={styles.categoryBadge}>{project.categoryLabel}</span>
                   <span
                     className={`${styles.statusBadge} ${
-                      isInDev ? styles.statusInDev : styles.statusCompleted
+                      isPending ? styles.statusInDev : styles.statusCompleted
                     }`}
                   >
                     {project.status}
@@ -128,9 +130,9 @@ export default function Projects() {
                     </a>
                   )}
 
-                  {isInDev && (
+                  {isPending && (
                     <span className={styles.devNote}>
-                      Active Architecture Phase
+                      Active Development Phase
                     </span>
                   )}
                 </div>
