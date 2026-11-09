@@ -3,7 +3,8 @@ import { meta } from '../portfolioData';
 import { GithubIcon, ExternalLinkIcon, GitBranchIcon } from './Icons';
 import styles from './GithubActivity.module.css';
 
-const FALLBACK_REPOS = [
+// Exactly the 3 requested repositories with verified, technically meaningful descriptions
+const EXACT_REPOS = [
   {
     name: 'sticker-shop',
     description: 'Service appointment scheduling and customer review web application built with Next.js, TypeScript, Tailwind CSS, and Supabase PostgreSQL with Row-Level Security.',
@@ -27,44 +28,49 @@ const FALLBACK_REPOS = [
   },
 ];
 
-const REPO_DESCRIPTIONS = {
-  'sticker-shop': 'Service appointment scheduling and customer review web application built with Next.js, TypeScript, Tailwind CSS, and Supabase PostgreSQL with Row-Level Security.',
-  'ai-smart-traffic-management': 'Vision-based adaptive traffic signal simulation modeling intersection demand, queue dynamics, and vehicle arrival delays, with planned OpenCV and deep learning detection.',
-  'cost-manager': 'React & TypeScript production costing system for calculating accurate per-packet product costs, raw material wastage, processing expenses, and profit margins.',
-};
+const ALLOWED_NAMES = ['sticker-shop', 'ai-smart-traffic-management', 'cost-manager'];
 
 export default function GithubActivity() {
-  const [repos, setRepos] = useState(FALLBACK_REPOS);
+  const [repos, setRepos] = useState(EXACT_REPOS);
   const [statusText, setStatusText] = useState('Synchronized');
 
   useEffect(() => {
     let isMounted = true;
     async function fetchRepos() {
       try {
-        const res = await fetch(`https://api.github.com/users/${meta.githubUsername}/repos?sort=updated&per_page=10`, {
+        const res = await fetch(`https://api.github.com/users/${meta.githubUsername}/repos?sort=updated&per_page=20`, {
           headers: {
             Accept: 'application/vnd.github.v3+json',
           },
         });
         if (res.ok) {
           const data = await res.json();
-          if (isMounted && Array.isArray(data) && data.length > 0) {
-            // Filter out the portfolio repository and any github.io pages repository
-            const filtered = data
-              .filter(repo => {
-                const lowerName = repo.name.toLowerCase();
-                return lowerName !== 'upadhya82.github.io' && !lowerName.endsWith('.github.io');
-              })
-              .map(repo => ({
-                ...repo,
-                description: REPO_DESCRIPTIONS[repo.name] || repo.description || 'Public engineering repository.',
-              }))
-              .slice(0, 4);
+          if (isMounted && Array.isArray(data)) {
+            // Build map of dynamic GitHub data matching only the allowed 3 repositories
+            const liveMap = new Map();
+            data.forEach(repo => {
+              const lower = repo.name.toLowerCase();
+              if (ALLOWED_NAMES.includes(lower)) {
+                liveMap.set(lower, repo);
+              }
+            });
 
-            if (filtered.length > 0) {
-              setRepos(filtered);
-              setStatusText('Live GitHub Data');
-            }
+            // Maintain strictly the three target repositories in exact order
+            const merged = EXACT_REPOS.map(fallback => {
+              const live = liveMap.get(fallback.name.toLowerCase());
+              if (live) {
+                return {
+                  ...fallback,
+                  html_url: live.html_url || fallback.html_url,
+                  language: live.language || fallback.language,
+                  updated_at: live.updated_at || fallback.updated_at,
+                };
+              }
+              return fallback;
+            });
+
+            setRepos(merged);
+            setStatusText('Live GitHub Data');
           }
         } else {
           setStatusText('Curated Repositories');

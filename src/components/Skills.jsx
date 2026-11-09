@@ -6,6 +6,7 @@ import {
   CodeIcon,
   CpuIcon,
   LayersIcon,
+  SmartphoneIcon,
   CheckCircleIcon,
 } from './Icons';
 import styles from './Skills.module.css';
@@ -16,6 +17,7 @@ const ICONS = {
   code: CodeIcon,
   cpu: CpuIcon,
   layers: LayersIcon,
+  smartphone: SmartphoneIcon,
 };
 
 export default function Skills() {
