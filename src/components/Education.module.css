@@ -1,78 +1,183 @@
 .section {
+  padding: 5rem 0;
+  position: relative;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.sectionHeader {
   margin-bottom: 3.5rem;
-  scroll-margin-top: 80px;
+  max-width: 700px;
 }
 
-.sectionLabel {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 1.2px;
-  color: var(--color-text-muted);
+.badgeLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
   text-transform: uppercase;
-  margin-bottom: 0.5rem;
+  letter-spacing: 0.08em;
+  color: var(--accent-cyan);
+  background: rgba(34, 211, 238, 0.08);
+  border: 1px solid rgba(34, 211, 238, 0.2);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  margin-bottom: 1rem;
 }
 
-.heading {
-  font-family: var(--font-serif);
-  font-size: 26px;
-  font-weight: 500;
-  margin-bottom: 1.25rem;
+.labelDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
 }
 
-.list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.sectionTitle {
+  font-size: 2.3rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
 }
 
-.item {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  background: var(--color-bg);
-  border: 0.5px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: 1.25rem 1.5rem;
+.cyanText {
+  color: var(--accent-cyan);
+}
+
+.sectionSubtitle {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.educationGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-xl);
+  padding: 2.2rem;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   box-shadow: var(--shadow-card);
-  transition: border-color 0.18s;
+  transition: transform 0.25s ease, border-color 0.25s ease;
 }
 
-.item:hover { border-color: var(--color-border-hover); }
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(56, 189, 248, 0.45);
+}
+
+.cardHeader {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 1.5rem;
+}
 
 .iconBox {
-  width: 40px;
-  height: 40px;
-  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
   border-radius: var(--radius-md);
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  color: var(--accent-cyan);
+  flex-shrink: 0;
 }
 
-.iconAccent {
-  background: var(--color-accent-bg);
+.titleGroup {
+  flex: 1;
 }
 
-.iconSuccess {
-  background: var(--color-success-bg);
-}
-
-.content { flex: 1; }
-
-.degree {
-  font-size: 14.5px;
-  font-weight: 500;
-  margin-bottom: 3px;
-}
-
-.institution {
-  font-size: 13px;
-  color: var(--color-text-secondary);
+.topRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
   margin-bottom: 4px;
 }
 
 .period {
-  font-size: 12px;
-  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.statusBadge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+}
+
+.statusActive {
+  background: rgba(16, 185, 129, 0.12);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.statusCompleted {
+  background: rgba(56, 189, 248, 0.12);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.degree {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 4px;
+  line-height: 1.35;
+}
+
+.institution {
+  font-size: 0.92rem;
+  color: var(--accent-cyan);
+  font-weight: 500;
+}
+
+.description {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.4rem;
+}
+
+.highlightsList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.highlightItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #cbd5e1;
+}
+
+.checkIcon {
+  color: var(--accent-cyan);
+  flex-shrink: 0;
+}
+
+@media (max-width: 850px) {
+  .educationGrid {
+    grid-template-columns: 1fr;
+  }
 }

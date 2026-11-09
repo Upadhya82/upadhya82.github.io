@@ -1,13 +1,12 @@
+.appContainer {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: var(--bg-primary);
+}
+
 .main {
-  padding-top: 60px; /* offset for fixed navbar */
-}
-
-.container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-@media (max-width: 600px) {
-  .container { padding: 0 1.25rem; }
+  flex: 1;
+  width: 100%;
 }

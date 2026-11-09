@@ -1,0 +1,266 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(4, 7, 15, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.modalBox {
+  background: #090e1c;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-xl);
+  max-width: 860px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(56, 189, 248, 0.2);
+  animation: modalEnter 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.toolbar {
+  padding: 12px 20px;
+  background: #0d1527;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toolbarTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.verifiedTag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.toolbarActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.printBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+}
+
+.printBtn:hover {
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+}
+
+.closeBtn {
+  color: var(--text-muted);
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.closeBtn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.resumePaper {
+  padding: 2.5rem;
+  overflow-y: auto;
+  color: #cbd5e1;
+  background: #080c16;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.resumeHeader {
+  border-bottom: 2px solid rgba(56, 189, 248, 0.3);
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.8rem;
+}
+
+.candidateName {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.candidateSubtitle {
+  font-size: 0.98rem;
+  color: var(--accent-cyan);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.contactRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.contactRow a {
+  color: var(--text-secondary);
+}
+
+.contactRow a:hover {
+  color: var(--accent-cyan);
+  text-decoration: underline;
+}
+
+.resumeSection {
+  margin-bottom: 1.8rem;
+}
+
+.sectionHeading {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #38bdf8;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 4px;
+  margin-bottom: 0.9rem;
+  font-family: var(--font-mono);
+}
+
+.summaryText {
+  color: #94a3b8;
+  line-height: 1.7;
+}
+
+.entryBlock {
+  margin-bottom: 1.2rem;
+}
+
+.entryHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.entryTitle {
+  font-size: 0.98rem;
+  color: #f1f5f9;
+}
+
+.entryPeriod {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.entrySub {
+  font-size: 0.88rem;
+  color: var(--accent-cyan);
+  margin-bottom: 4px;
+}
+
+.entryDesc {
+  font-size: 0.88rem;
+  color: #94a3b8;
+  line-height: 1.55;
+}
+
+.techStackNote {
+  font-size: 0.82rem;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+.techStackNote strong {
+  color: #94a3b8;
+}
+
+.skillsTable {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skillRow {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.88rem;
+}
+
+.skillCategoryName {
+  color: #f1f5f9;
+  font-weight: 600;
+}
+
+@media print {
+  .overlay {
+    position: static;
+    background: transparent;
+    padding: 0;
+  }
+  .modalBox {
+    box-shadow: none;
+    border: none;
+    max-height: none;
+    background: #fff;
+    color: #000;
+  }
+  .toolbar {
+    display: none;
+  }
+  .resumePaper {
+    background: #fff;
+    color: #111;
+  }
+  .candidateName {
+    color: #000;
+  }
+  .candidateSubtitle, .sectionHeading {
+    color: #0369a1;
+  }
+}

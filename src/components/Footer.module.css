@@ -1,27 +1,164 @@
 .footer {
-  border-top: 0.5px solid var(--color-border);
-  padding: 1.75rem 0 2.5rem;
+  background: #04070e;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 4.5rem 0 2.5rem 0;
+  position: relative;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.topRow {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3.5rem;
+}
+
+.brandCol {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.brandLogo {
+  display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 10px;
 }
 
-.note {
-  font-size: 12.5px;
-  color: var(--color-text-muted);
+.brandIcon {
+  color: var(--accent-cyan);
 }
 
-.links {
+.brandName {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.brandTagline {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  max-width: 420px;
+}
+
+.ciBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  width: fit-content;
+  margin-top: 6px;
+}
+
+.ciDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 6px #10b981;
+}
+
+.colHeader {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 1.2rem;
+}
+
+.linksList {
+  list-style: none;
   display: flex;
-  gap: 1.25rem;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.links a {
-  font-size: 12.5px;
-  color: var(--color-text-secondary);
-  transition: color 0.15s;
+.linksList a {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: inline-block;
 }
 
-.links a:hover { color: var(--color-text-primary); }
+.linksList a:hover {
+  color: var(--accent-cyan);
+  transform: translateX(3px);
+}
+
+.socialCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.socialIcons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.socialIconBtn {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-md);
+  background: rgba(13, 21, 39, 0.8);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+
+.socialIconBtn:hover {
+  color: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+  background: rgba(56, 189, 248, 0.1);
+  transform: translateY(-2px);
+}
+
+.locationNote {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.bottomBar {
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.copyright {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.quote {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: #38bdf8;
+}
+
+@media (max-width: 800px) {
+  .topRow {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}

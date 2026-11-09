@@ -1,0 +1,46 @@
+name: Continuous Integration & Build Validation
+
+on:
+  push:
+    branches:
+      - main
+      - portfolio-redesign-devops
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate-and-build:
+    name: Lint, Test & Validate Production Build
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install Project Dependencies
+        run: npm ci
+
+      - name: Run Automated Test Suites
+        run: npm test -- --watchAll=false
+
+      - name: Validate Production Build
+        run: npm run build
+
+      - name: Verify Build Artifact Integrity
+        run: |
+          if [ ! -f "build/index.html" ]; then
+            echo "Error: build/index.html does not exist!"
+            exit 1
+          fi
+          echo "Production build validation succeeded."
