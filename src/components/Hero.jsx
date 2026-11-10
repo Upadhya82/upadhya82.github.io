@@ -1,6 +1,7 @@
 import React from 'react';
 import { meta } from '../portfolioData';
 import Terminal from './Terminal';
+import PixelPortrait from './PixelPortrait';
 import {
   GithubIcon,
   LinkedinIcon,
@@ -107,22 +108,10 @@ export default function Hero({ onOpenResume }) {
           </div>
         </div>
 
-        {/* Right Column: Interactive Terminal & Avatar Frame */}
+        {/* Right Column: Pixel Portrait & Interactive Terminal */}
         <div className={styles.terminalCol}>
-          <div className={styles.avatarBar}>
-            <div className={styles.avatarGlowRing}>
-              <div className={styles.avatarInner}>
-                <span className={styles.avatarInitials}>{meta.initials}</span>
-              </div>
-            </div>
-            <div className={styles.avatarDetails}>
-              <div className={styles.avatarName}>{meta.name}</div>
-              <div className={styles.avatarRole}>DevOps & Cloud Aspirant</div>
-            </div>
-            <div className={styles.onlineBadge}>
-              <span className={styles.onlineDot} />
-              <span>Online</span>
-            </div>
+          <div className={styles.portraitSection}>
+            <PixelPortrait />
           </div>
 
           {/* Interactive Terminal Panel */}

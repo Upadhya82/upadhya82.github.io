@@ -5,6 +5,7 @@ import About from './components/About';
 import Roadmap from './components/Roadmap';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
+import DesignPortfolio from './components/DesignPortfolio';
 import Education from './components/Education';
 import GithubActivity from './components/GithubActivity';
 import Contact from './components/Contact';
@@ -27,6 +28,7 @@ export default function App() {
         <Roadmap />
         <Skills />
         <Projects />
+        <DesignPortfolio />
         <Education />
         <GithubActivity />
         <Contact onOpenResume={() => setResumeOpen(true)} />

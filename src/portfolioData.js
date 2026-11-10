@@ -277,8 +277,8 @@ export const projects = [
     title: 'WORKORA',
     tagline: 'Digital Work & Opportunity Matching Platform',
     category: 'fullstack',
-    categoryLabel: 'Web Platform (In Development)',
-    status: 'In Development',
+    categoryLabel: 'Web Platform (In Progress)',
+    status: 'In Progress',
     featured: false,
     description:
       'An upcoming modern platform engineered to connect digital freelance talent with localized project opportunities. Currently undergoing system architecture design, database modeling, and component prototyping.',

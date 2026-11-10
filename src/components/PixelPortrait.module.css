@@ -1,0 +1,247 @@
+.portraitWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  user-select: none;
+}
+
+.frameBorder {
+  position: relative;
+  width: 270px;
+  height: 270px;
+  border-radius: 28px;
+  padding: 3px;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.4) 0%, rgba(6, 182, 212, 0.1) 50%, rgba(59, 130, 246, 0.4) 100%);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(56, 189, 248, 0.15);
+  transition: box-shadow 0.5s ease, transform 0.5s ease;
+  animation: portraitFloat 4.2s ease-in-out infinite;
+}
+
+@keyframes portraitFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.frameGlow {
+  box-shadow: 
+    0 15px 40px rgba(0, 0, 0, 0.7),
+    0 0 30px rgba(56, 189, 248, 0.28),
+    0 0 60px rgba(6, 182, 212, 0.15);
+}
+
+.innerContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 25px;
+  overflow: hidden;
+  background: #070c18;
+}
+
+/* Canvas for pixel assembly */
+.canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  transition: opacity 0.6s ease;
+}
+
+.canvasFadeOut {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Reconstructed crisp photograph */
+.photo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s ease;
+}
+
+.photoVisible {
+  opacity: 1;
+}
+
+/* Subtle holographic scanline */
+.scanOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    rgba(34, 211, 238, 0) 50%,
+    rgba(34, 211, 238, 0.05) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0.7;
+}
+
+.scanSubtle {
+  opacity: 0.35;
+}
+
+/* Cybernetic HUD Corner Accents */
+.corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: var(--accent-cyan);
+  border-style: solid;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.cornerTL {
+  top: 8px;
+  left: 8px;
+  border-width: 2px 0 0 2px;
+}
+
+.cornerTR {
+  top: 8px;
+  right: 8px;
+  border-width: 2px 2px 0 0;
+}
+
+.cornerBL {
+  bottom: 8px;
+  left: 8px;
+  border-width: 0 0 2px 2px;
+}
+
+.cornerBR {
+  bottom: 8px;
+  right: 8px;
+  border-width: 0 2px 2px 0;
+}
+
+/* Cyber Status Card Tag below Portrait */
+.tagBar {
+  background: rgba(13, 21, 39, 0.85);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-full);
+  padding: 6px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  max-width: 270px;
+  width: 100%;
+}
+
+.statusDot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+}
+
+.dotCore {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--status-active);
+  box-shadow: 0 0 8px var(--status-active);
+}
+
+.dotPing {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--status-active);
+  animation: pingDot 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes pingDot {
+  75%, 100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+.tagText {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.tagTitle {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tagRole {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--accent-cyan);
+  white-space: nowrap;
+}
+
+.verifiedBadge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Responsiveness */
+@media (max-width: 640px) {
+  .frameBorder {
+    width: 230px;
+    height: 230px;
+    border-radius: 24px;
+  }
+  .innerContainer {
+    border-radius: 21px;
+  }
+  .tagBar {
+    max-width: 230px;
+  }
+}
+
+/* Accessibility: Respect Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .frameBorder {
+    animation: none !important;
+  }
+  .canvas {
+    display: none !important;
+  }
+  .photo {
+    opacity: 1 !important;
+  }
+  .dotPing {
+    animation: none !important;
+  }
+}

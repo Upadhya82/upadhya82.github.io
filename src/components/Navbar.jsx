@@ -8,6 +8,8 @@ const NAV_LINKS = [
   { label: 'Roadmap', href: '#roadmap' },
   { label: 'Skills', href: '#skills' },
   { label: 'Projects', href: '#projects' },
+  { label: 'UI/UX Design', href: '#ui-ux-design' },
+  { label: 'Graphic Design', href: '#graphic-design' },
   { label: 'Education', href: '#education' },
   { label: 'Contact', href: '#contact' },
 ];
