@@ -37,10 +37,16 @@ export default function DesignPortfolio() {
 
   useEffect(() => {
     const timer = window.setInterval(() => {
-      setActiveSlide(current => (current + 1) % visibleWorks.length);
-    }, 4500);
+      setActiveSlide(current => current + 1);
+    }, 4200);
     return () => window.clearInterval(timer);
   }, [visibleWorks.length]);
+
+  const handleCarouselEnd = () => {
+    if (activeSlide >= visibleWorks.length) {
+      setActiveSlide(0);
+    }
+  };
 
   useEffect(() => {
     if (!selected) return undefined;
@@ -86,10 +92,10 @@ export default function DesignPortfolio() {
           </div>
           <div className={styles.carousel} aria-roledescription="carousel" aria-label="Graphic design portfolio">
             <div className={styles.carouselViewport}>
-              <div className={styles.carouselTrack} style={{ transform: `translateX(-${activeSlide * 100}%)` }}>
-                {visibleWorks.map(work => (
-                  <div className={styles.slide} key={work.src} aria-hidden={visibleWorks[activeSlide]?.src !== work.src}>
-                    <button className={styles.card} type="button" onClick={() => setSelected(work)} aria-label={`Enlarge ${work.title}`} tabIndex={visibleWorks[activeSlide]?.src === work.src ? 0 : -1}>
+              <div className={styles.carouselTrack} onTransitionEnd={handleCarouselEnd} style={{ transform: `translateX(-${activeSlide * 12.5}%)` }}>
+                {[...visibleWorks, ...visibleWorks].map((work, index) => (
+                  <div className={styles.slide} key={`${work.src}-${index}`} aria-hidden={index >= visibleWorks.length}>
+                    <button className={styles.card} type="button" onClick={() => setSelected(work)} aria-label={`Enlarge ${work.title}`} tabIndex={index >= visibleWorks.length ? -1 : 0}>
                       <span className={styles.imageFrame}>
                         <img src={work.src} alt={work.alt} loading="lazy" decoding="async" />
                         <span className={styles.zoomHint}>View artwork <span aria-hidden="true">↗</span></span>
@@ -104,14 +110,14 @@ export default function DesignPortfolio() {
               </div>
             </div>
             <div className={styles.carouselControls}>
-              <button type="button" className={styles.carouselArrow} aria-label="Previous artwork" onClick={() => setActiveSlide(current => (current - 1 + visibleWorks.length) % visibleWorks.length)}>←</button>
+              <button type="button" className={styles.carouselArrow} aria-label="Previous artwork" onClick={() => setActiveSlide(current => Math.max(0, current - 1))}>←</button>
               <div className={styles.dots} aria-label="Choose artwork">
                 {visibleWorks.map((work, index) => (
                   <button key={work.src} type="button" className={`${styles.dot} ${index === activeSlide ? styles.activeDot : ''}`} aria-label={`Show artwork ${index + 1}: ${work.title}`} aria-current={index === activeSlide ? 'true' : undefined} onClick={() => setActiveSlide(index)} />
                 ))}
               </div>
               <span className={styles.slideCount}>{String(activeSlide + 1).padStart(2, '0')} <span>/</span> {String(visibleWorks.length).padStart(2, '0')}</span>
-              <button type="button" className={styles.carouselArrow} aria-label="Next artwork" onClick={() => setActiveSlide(current => (current + 1) % visibleWorks.length)}>→</button>
+              <button type="button" className={styles.carouselArrow} aria-label="Next artwork" onClick={() => setActiveSlide(current => Math.min(visibleWorks.length, current + 1))}>→</button>
             </div>
           </div>
         </div>
