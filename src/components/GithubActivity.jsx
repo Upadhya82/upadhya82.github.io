@@ -30,6 +30,69 @@ const EXACT_REPOS = [
 
 const ALLOWED_NAMES = ['sticker-shop', 'ai-smart-traffic-management', 'cost-manager'];
 
+function ContributionsGraph() {
+  const [contributionData, setContributionData] = useState(null);
+  const [contributionError, setContributionError] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    fetch(`https://github-contributions-api.jogruber.de/v4/${meta.githubUsername}?y=last`)
+      .then(response => {
+        if (!response.ok) throw new Error('Could not load contribution data');
+        return response.json();
+      })
+      .then(data => {
+        if (active && Array.isArray(data.contributions)) setContributionData(data);
+        else if (active) setContributionError(true);
+      })
+      .catch(() => { if (active) setContributionError(true); });
+    return () => { active = false; };
+  }, []);
+
+  const weeks = [];
+  if (contributionData) {
+    const days = contributionData.contributions;
+    const leadingBlanks = new Date(`${days[0].date}T00:00:00`).getDay();
+    const alignedDays = [...Array(leadingBlanks).fill(null), ...days];
+    while (alignedDays.length % 7) alignedDays.push(null);
+    for (let i = 0; i < alignedDays.length; i += 7) weeks.push(alignedDays.slice(i, i + 7));
+  }
+  const total = contributionData?.total?.lastYear ?? Object.values(contributionData?.total || {}).reduce((sum, n) => sum + n, 0);
+
+  return (
+    <section className={styles.contributions} aria-label="GitHub contributions">
+      <div className={styles.contributionsHeading}>
+        <h3>Contribution activity</h3>
+        <span>{contributionData ? `${total} contributions in the last year` : contributionError ? 'Contribution data unavailable' : 'Loading contributions…'}</span>
+      </div>
+      <div className={styles.contributionsCard}>
+        <div className={styles.monthLabels} aria-hidden="true">{weeks.map((week, i) => {
+          const firstDay = week.find(Boolean);
+          const previousDay = i ? weeks[i - 1].find(Boolean) : null;
+          const isNewMonth = firstDay && (!previousDay || new Date(`${firstDay.date}T00:00:00`).getMonth() !== new Date(`${previousDay.date}T00:00:00`).getMonth());
+          return <span key={i}>{isNewMonth ? new Date(`${firstDay.date}T00:00:00`).toLocaleString('en', { month: 'short' }) : ''}</span>;
+        })}</div>
+        <div className={styles.graphBody}>
+          <div className={styles.weekdayLabels} aria-hidden="true"><span>Mon</span><span>Wed</span><span>Fri</span></div>
+          <div className={styles.contributionGrid} role="img" aria-label="GitHub contributions for the last year">
+            {weeks.length ? weeks.map((week, column) => (
+              <div className={styles.week} key={column}>
+                {week.map((day, row) => (
+                  <span key={row} className={`${styles.cell} ${styles[`level${day?.level ?? 0}`]}`} title={day ? `${day.count} contributions on ${day.date}` : undefined} />
+                ))}
+              </div>
+            )) : Array.from({ length: 53 }, (_, column) => <div className={styles.week} key={column}>{Array.from({ length: 7 }, (_, row) => <span key={row} className={`${styles.cell} ${styles.level0}`} />)}</div>)}
+          </div>
+        </div>
+        <div className={styles.graphFooter}>
+          <span>{contributionError ? 'Could not load public GitHub contribution data' : 'Public GitHub contribution data'}</span>
+          <span className={styles.legend}><i className={styles.level0} /> Less <i className={styles.level2} /><i className={styles.level3} /><i className={styles.level4} /> More</span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function GithubActivity() {
   const [repos, setRepos] = useState(EXACT_REPOS);
   const [statusText, setStatusText] = useState('Synchronized');
@@ -115,6 +178,8 @@ export default function GithubActivity() {
             </a>
           </div>
         </div>
+
+        <ContributionsGraph />
 
         <div className={styles.reposGrid}>
           {repos.map(repo => (
